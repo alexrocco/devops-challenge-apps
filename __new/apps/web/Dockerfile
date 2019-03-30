@@ -1,10 +1,10 @@
 FROM node:8.15.1-jessie
 
-ARG DB_URL
-ENV DB=${DB_URL}
+ARG PORT=5000
+ENV PORT=${PORT}
 
-ARG port=8080
-ENV PORT=${port}
+ARG API_HOST
+ENV API_HOST=${API_HOST}
 
 COPY . /app/
 WORKDIR /app
