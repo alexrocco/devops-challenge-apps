@@ -1,0 +1,12 @@
+`kops create cluster \
+--name=k8s.alexandrealvarenga.me \
+--state=s3://k8s-devops-challenge-apps-config \
+--dns-zone=k8s.alexandrealvarenga.me \
+--zones=us-east-1e \
+--node-count 1 \
+--node-size t2.small \
+--networking calico \
+--topology private \
+--bastion="true" \
+--out=. \
+--target=terraform`
