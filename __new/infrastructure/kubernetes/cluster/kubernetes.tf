@@ -1,13 +1,3 @@
-terraform {
-  required_version = ">= 0.9.3"
-  backend "s3" {
-    bucket         = "terraform-devops-challenge-apps"
-    key            = "kubernetes.tfstate"
-    dynamodb_table = "TerraformState"
-    region         = "us-east-1"
-  }
-}
-
 locals = {
   bastion_autoscaling_group_ids     = ["${aws_autoscaling_group.bastions-k8s-alexandrealvarenga-me.id}"]
   bastion_security_group_ids        = ["${aws_security_group.bastion-k8s-alexandrealvarenga-me.id}"]
@@ -391,16 +381,16 @@ resource "aws_internet_gateway" "k8s-alexandrealvarenga-me" {
   }
 }
 
-resource "aws_key_pair" "kubernetes-k8s-alexandrealvarenga-me-37b912cea4fb8130fc41d328d4f9139f" {
-  key_name   = "kubernetes.k8s.alexandrealvarenga.me-37:b9:12:ce:a4:fb:81:30:fc:41:d3:28:d4:f9:13:9f"
-  public_key = "${file("${path.module}/data/aws_key_pair_kubernetes.k8s.alexandrealvarenga.me-37b912cea4fb8130fc41d328d4f9139f_public_key")}"
+resource "aws_key_pair" "kubernetes-k8s-alexandrealvarenga-me-5f544806968f48800c5c8e152379ba29" {
+  key_name   = "kubernetes.k8s.alexandrealvarenga.me-5f:54:48:06:96:8f:48:80:0c:5c:8e:15:23:79:ba:29"
+  public_key = "${file("${path.module}/data/aws_key_pair_kubernetes.k8s.alexandrealvarenga.me-5f544806968f48800c5c8e152379ba29_public_key")}"
 }
 
 resource "aws_launch_configuration" "bastions-k8s-alexandrealvarenga-me" {
   name_prefix                 = "bastions.k8s.alexandrealvarenga.me-"
   image_id                    = "ami-03b850a018c8cd25e"
   instance_type               = "t2.micro"
-  key_name                    = "${aws_key_pair.kubernetes-k8s-alexandrealvarenga-me-37b912cea4fb8130fc41d328d4f9139f.id}"
+  key_name                    = "${aws_key_pair.kubernetes-k8s-alexandrealvarenga-me-5f544806968f48800c5c8e152379ba29.id}"
   iam_instance_profile        = "${aws_iam_instance_profile.bastions-k8s-alexandrealvarenga-me.id}"
   security_groups             = ["${aws_security_group.bastion-k8s-alexandrealvarenga-me.id}"]
   associate_public_ip_address = true
@@ -421,8 +411,8 @@ resource "aws_launch_configuration" "bastions-k8s-alexandrealvarenga-me" {
 resource "aws_launch_configuration" "master-us-east-1e-masters-k8s-alexandrealvarenga-me" {
   name_prefix                 = "master-us-east-1e.masters.k8s.alexandrealvarenga.me-"
   image_id                    = "ami-03b850a018c8cd25e"
-  instance_type               = "m3.medium"
-  key_name                    = "${aws_key_pair.kubernetes-k8s-alexandrealvarenga-me-37b912cea4fb8130fc41d328d4f9139f.id}"
+  instance_type               = "t2.medium"
+  key_name                    = "${aws_key_pair.kubernetes-k8s-alexandrealvarenga-me-5f544806968f48800c5c8e152379ba29.id}"
   iam_instance_profile        = "${aws_iam_instance_profile.masters-k8s-alexandrealvarenga-me.id}"
   security_groups             = ["${aws_security_group.masters-k8s-alexandrealvarenga-me.id}"]
   associate_public_ip_address = false
@@ -432,11 +422,6 @@ resource "aws_launch_configuration" "master-us-east-1e-masters-k8s-alexandrealva
     volume_type           = "gp2"
     volume_size           = 64
     delete_on_termination = true
-  }
-
-  ephemeral_block_device = {
-    device_name  = "/dev/sdc"
-    virtual_name = "ephemeral0"
   }
 
   lifecycle = {
@@ -449,8 +434,8 @@ resource "aws_launch_configuration" "master-us-east-1e-masters-k8s-alexandrealva
 resource "aws_launch_configuration" "nodes-k8s-alexandrealvarenga-me" {
   name_prefix                 = "nodes.k8s.alexandrealvarenga.me-"
   image_id                    = "ami-03b850a018c8cd25e"
-  instance_type               = "t2.small"
-  key_name                    = "${aws_key_pair.kubernetes-k8s-alexandrealvarenga-me-37b912cea4fb8130fc41d328d4f9139f.id}"
+  instance_type               = "t2.medium"
+  key_name                    = "${aws_key_pair.kubernetes-k8s-alexandrealvarenga-me-5f544806968f48800c5c8e152379ba29.id}"
   iam_instance_profile        = "${aws_iam_instance_profile.nodes-k8s-alexandrealvarenga-me.id}"
   security_groups             = ["${aws_security_group.nodes-k8s-alexandrealvarenga-me.id}"]
   associate_public_ip_address = false
@@ -835,4 +820,8 @@ resource "aws_vpc_dhcp_options" "k8s-alexandrealvarenga-me" {
 resource "aws_vpc_dhcp_options_association" "k8s-alexandrealvarenga-me" {
   vpc_id          = "${aws_vpc.k8s-alexandrealvarenga-me.id}"
   dhcp_options_id = "${aws_vpc_dhcp_options.k8s-alexandrealvarenga-me.id}"
+}
+
+terraform = {
+  required_version = ">= 0.9.3"
 }
