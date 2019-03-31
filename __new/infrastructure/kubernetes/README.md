@@ -1,7 +1,7 @@
 `kops create cluster \
 --name=k8s.alexandrealvarenga.me \
 --state=s3://k8s-devops-challenge-apps-config \
---dns-zone=k8s.alexandrealvarenga.me \
+--dns-zone=alexandrealvarenga.me \
 --zones=us-east-1e \
 --node-count 1 \
 --node-size t2.small \
