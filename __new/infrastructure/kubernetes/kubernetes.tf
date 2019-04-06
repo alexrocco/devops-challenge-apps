@@ -18,8 +18,7 @@ locals = {
   route_table_public_id             = "${aws_route_table.k8s-alexandrealvarenga-me.id}"
   subnet_us-east-1e_id              = "${aws_subnet.us-east-1e-k8s-alexandrealvarenga-me.id}"
   subnet_utility-us-east-1e_id      = "${aws_subnet.utility-us-east-1e-k8s-alexandrealvarenga-me.id}"
-  vpc_cidr_block                    = "${aws_vpc.k8s-alexandrealvarenga-me.cidr_block}"
-  vpc_id                            = "${aws_vpc.k8s-alexandrealvarenga-me.id}"
+  vpc_id                            = "vpc-06772b2df12a9faf6"
 }
 
 output "bastion_autoscaling_group_ids" {
@@ -98,12 +97,8 @@ output "subnet_utility-us-east-1e_id" {
   value = "${aws_subnet.utility-us-east-1e-k8s-alexandrealvarenga-me.id}"
 }
 
-output "vpc_cidr_block" {
-  value = "${aws_vpc.k8s-alexandrealvarenga-me.cidr_block}"
-}
-
 output "vpc_id" {
-  value = "${aws_vpc.k8s-alexandrealvarenga-me.id}"
+  value = "vpc-06772b2df12a9faf6"
 }
 
 provider "aws" {
@@ -371,16 +366,6 @@ resource "aws_iam_role_policy" "nodes-k8s-alexandrealvarenga-me" {
   policy = "${file("${path.module}/data/aws_iam_role_policy_nodes.k8s.alexandrealvarenga.me_policy")}"
 }
 
-resource "aws_internet_gateway" "k8s-alexandrealvarenga-me" {
-  vpc_id = "${aws_vpc.k8s-alexandrealvarenga-me.id}"
-
-  tags = {
-    KubernetesCluster                                 = "k8s.alexandrealvarenga.me"
-    Name                                              = "k8s.alexandrealvarenga.me"
-    "kubernetes.io/cluster/k8s.alexandrealvarenga.me" = "owned"
-  }
-}
-
 resource "aws_key_pair" "kubernetes-k8s-alexandrealvarenga-me-5f544806968f48800c5c8e152379ba29" {
   key_name   = "kubernetes.k8s.alexandrealvarenga.me-5f:54:48:06:96:8f:48:80:0c:5c:8e:15:23:79:ba:29"
   public_key = "${file("${path.module}/data/aws_key_pair_kubernetes.k8s.alexandrealvarenga.me-5f544806968f48800c5c8e152379ba29_public_key")}"
@@ -468,7 +453,7 @@ resource "aws_nat_gateway" "us-east-1e-k8s-alexandrealvarenga-me" {
 resource "aws_route" "0-0-0-0--0" {
   route_table_id         = "${aws_route_table.k8s-alexandrealvarenga-me.id}"
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = "${aws_internet_gateway.k8s-alexandrealvarenga-me.id}"
+  gateway_id             = "igw-00214dccaf7e6e7a5"
 }
 
 resource "aws_route" "private-us-east-1e-0-0-0-0--0" {
@@ -504,7 +489,7 @@ resource "aws_route53_record" "bastion-k8s-alexandrealvarenga-me" {
 }
 
 resource "aws_route_table" "k8s-alexandrealvarenga-me" {
-  vpc_id = "${aws_vpc.k8s-alexandrealvarenga-me.id}"
+  vpc_id = "vpc-06772b2df12a9faf6"
 
   tags = {
     KubernetesCluster                                 = "k8s.alexandrealvarenga.me"
@@ -515,7 +500,7 @@ resource "aws_route_table" "k8s-alexandrealvarenga-me" {
 }
 
 resource "aws_route_table" "private-us-east-1e-k8s-alexandrealvarenga-me" {
-  vpc_id = "${aws_vpc.k8s-alexandrealvarenga-me.id}"
+  vpc_id = "vpc-06772b2df12a9faf6"
 
   tags = {
     KubernetesCluster                                 = "k8s.alexandrealvarenga.me"
@@ -537,7 +522,7 @@ resource "aws_route_table_association" "utility-us-east-1e-k8s-alexandrealvareng
 
 resource "aws_security_group" "api-elb-k8s-alexandrealvarenga-me" {
   name        = "api-elb.k8s.alexandrealvarenga.me"
-  vpc_id      = "${aws_vpc.k8s-alexandrealvarenga-me.id}"
+  vpc_id      = "vpc-06772b2df12a9faf6"
   description = "Security group for api ELB"
 
   tags = {
@@ -549,7 +534,7 @@ resource "aws_security_group" "api-elb-k8s-alexandrealvarenga-me" {
 
 resource "aws_security_group" "bastion-elb-k8s-alexandrealvarenga-me" {
   name        = "bastion-elb.k8s.alexandrealvarenga.me"
-  vpc_id      = "${aws_vpc.k8s-alexandrealvarenga-me.id}"
+  vpc_id      = "vpc-06772b2df12a9faf6"
   description = "Security group for bastion ELB"
 
   tags = {
@@ -561,7 +546,7 @@ resource "aws_security_group" "bastion-elb-k8s-alexandrealvarenga-me" {
 
 resource "aws_security_group" "bastion-k8s-alexandrealvarenga-me" {
   name        = "bastion.k8s.alexandrealvarenga.me"
-  vpc_id      = "${aws_vpc.k8s-alexandrealvarenga-me.id}"
+  vpc_id      = "vpc-06772b2df12a9faf6"
   description = "Security group for bastion"
 
   tags = {
@@ -573,7 +558,7 @@ resource "aws_security_group" "bastion-k8s-alexandrealvarenga-me" {
 
 resource "aws_security_group" "masters-k8s-alexandrealvarenga-me" {
   name        = "masters.k8s.alexandrealvarenga.me"
-  vpc_id      = "${aws_vpc.k8s-alexandrealvarenga-me.id}"
+  vpc_id      = "vpc-06772b2df12a9faf6"
   description = "Security group for masters"
 
   tags = {
@@ -585,7 +570,7 @@ resource "aws_security_group" "masters-k8s-alexandrealvarenga-me" {
 
 resource "aws_security_group" "nodes-k8s-alexandrealvarenga-me" {
   name        = "nodes.k8s.alexandrealvarenga.me"
-  vpc_id      = "${aws_vpc.k8s-alexandrealvarenga-me.id}"
+  vpc_id      = "vpc-06772b2df12a9faf6"
   description = "Security group for nodes"
 
   tags = {
@@ -767,8 +752,8 @@ resource "aws_security_group_rule" "ssh-external-to-bastion-elb-0-0-0-0--0" {
 }
 
 resource "aws_subnet" "us-east-1e-k8s-alexandrealvarenga-me" {
-  vpc_id            = "${aws_vpc.k8s-alexandrealvarenga-me.id}"
-  cidr_block        = "172.20.32.0/19"
+  vpc_id            = "vpc-06772b2df12a9faf6"
+  cidr_block        = "10.0.32.0/19"
   availability_zone = "us-east-1e"
 
   tags = {
@@ -781,8 +766,8 @@ resource "aws_subnet" "us-east-1e-k8s-alexandrealvarenga-me" {
 }
 
 resource "aws_subnet" "utility-us-east-1e-k8s-alexandrealvarenga-me" {
-  vpc_id            = "${aws_vpc.k8s-alexandrealvarenga-me.id}"
-  cidr_block        = "172.20.0.0/22"
+  vpc_id            = "vpc-06772b2df12a9faf6"
+  cidr_block        = "10.0.0.0/22"
   availability_zone = "us-east-1e"
 
   tags = {
@@ -792,34 +777,6 @@ resource "aws_subnet" "utility-us-east-1e-k8s-alexandrealvarenga-me" {
     "kubernetes.io/cluster/k8s.alexandrealvarenga.me" = "owned"
     "kubernetes.io/role/elb"                          = "1"
   }
-}
-
-resource "aws_vpc" "k8s-alexandrealvarenga-me" {
-  cidr_block           = "172.20.0.0/16"
-  enable_dns_hostnames = true
-  enable_dns_support   = true
-
-  tags = {
-    KubernetesCluster                                 = "k8s.alexandrealvarenga.me"
-    Name                                              = "k8s.alexandrealvarenga.me"
-    "kubernetes.io/cluster/k8s.alexandrealvarenga.me" = "owned"
-  }
-}
-
-resource "aws_vpc_dhcp_options" "k8s-alexandrealvarenga-me" {
-  domain_name         = "ec2.internal"
-  domain_name_servers = ["AmazonProvidedDNS"]
-
-  tags = {
-    KubernetesCluster                                 = "k8s.alexandrealvarenga.me"
-    Name                                              = "k8s.alexandrealvarenga.me"
-    "kubernetes.io/cluster/k8s.alexandrealvarenga.me" = "owned"
-  }
-}
-
-resource "aws_vpc_dhcp_options_association" "k8s-alexandrealvarenga-me" {
-  vpc_id          = "${aws_vpc.k8s-alexandrealvarenga-me.id}"
-  dhcp_options_id = "${aws_vpc_dhcp_options.k8s-alexandrealvarenga-me.id}"
 }
 
 terraform = {

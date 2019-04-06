@@ -1,5 +1,6 @@
 resource "aws_s3_bucket" "k8s-devops-challenge-apps-config" {
-  bucket = "k8s-devops-challenge-apps-config"
+  bucket        = "k8s-devops-challenge-apps-config"
+  force_destroy = true
 
   versioning {
     enabled = true
@@ -7,7 +8,8 @@ resource "aws_s3_bucket" "k8s-devops-challenge-apps-config" {
 }
 
 resource "aws_s3_bucket" "terraform-devops-challenge-apps" {
-  bucket = "terraform-devops-challenge-apps"
+  bucket        = "terraform-devops-challenge-apps"
+  force_destroy = true
 }
 
 resource "aws_dynamodb_table" "terraform-state" {
