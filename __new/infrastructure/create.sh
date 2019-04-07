@@ -54,8 +54,21 @@ create_kubernetes() {
   terraform apply -auto-approve
 
   kops export kubecfg ${NAME}
+
+  cd $BASE_PATH || exit 1
+}
+
+create_database() {
+  cd database || exit 1
+
+  terraform init
+  terraform apply -auto-approve
+
+  cd $BASE_PATH || exit 1
+
 }
 
 create_infrastructure_state
 create_network
 create_kubernetes
+create_database

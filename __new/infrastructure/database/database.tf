@@ -11,6 +11,18 @@ provider "aws" {
   region = "us-east-1"
 }
 
+output "username" {
+  value = "${var.postgres_user}"
+}
+
+output "password" {
+  value =  "${random_string.postgres_password.result}"
+}
+
+output "endpoint" {
+  value = "${aws_db_instance.postgres.endpoint}"
+}
+
 data "terraform_remote_state" "network" {
   backend = "s3"
 
@@ -41,8 +53,9 @@ resource "aws_db_instance" "postgres" {
   engine               = "postgres"
   engine_version       = "10.6"
   instance_class       = "db.t2.micro"
-  name                 = "DevopsChallengeAppsPostgres"
+  identifier           = "devops-challenge-apps-postgres"
   username             = "${var.postgres_user}"
   password             = "${random_string.postgres_password.result}"
   db_subnet_group_name = "${aws_db_subnet_group.db_subnet_group.id}"
+  skip_final_snapshot  = true
 }
