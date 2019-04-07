@@ -1,10 +1,14 @@
 terraform = {
   backend "s3" {
     bucket         = "terraform-devops-challenge-apps"
-    key            = "network.tfstate"
+    key            = "database.tfstate"
     dynamodb_table = "TerraformState"
     region         = "us-east-1"
   }
+}
+
+provider "aws" {
+  region = "us-east-1"
 }
 
 data "terraform_remote_state" "network" {
@@ -37,7 +41,7 @@ resource "aws_db_instance" "postgres" {
   engine               = "postgres"
   engine_version       = "10.6"
   instance_class       = "db.t2.micro"
-  name                 = "devops-challenge-apps-postgres"
+  name                 = "DevopsChallengeAppsPostgres"
   username             = "${var.postgres_user}"
   password             = "${random_string.postgres_password.result}"
   db_subnet_group_name = "${aws_db_subnet_group.db_subnet_group.id}"

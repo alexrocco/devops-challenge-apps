@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 BASE_PATH=$PWD
 VPC_ID=""
 NETWORK_CIDR=""
@@ -31,7 +33,7 @@ create_kubernetes() {
   export VPC_ID
   export NETWORK_CIDR
 
-  NAME="k8s.alexandrealvarenga.me"
+  export NAME="k8s.alexandrealvarenga.me"
   export KOPS_STATE_STORE="s3://k8s-devops-challenge-apps-config"
 
   kops create cluster \
@@ -51,7 +53,7 @@ create_kubernetes() {
   terraform init
   terraform apply -auto-approve
 
-   kops export kubecfg ${NAME}
+  kops export kubecfg ${NAME}
 }
 
 create_infrastructure_state

@@ -1,3 +1,3 @@
 variable "postgres_user" {
-  default = "admin"
+  default = "pg_admin"
 }

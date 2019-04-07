@@ -1,3 +1,7 @@
+provider "aws" {
+  region = "us-east-1"
+}
+
 resource "aws_s3_bucket" "k8s-devops-challenge-apps-config" {
   bucket        = "k8s-devops-challenge-apps-config"
   force_destroy = true
