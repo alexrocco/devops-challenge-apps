@@ -1,0 +1,5 @@
+apiVersion: v1
+appVersion: "1.0"
+description: Devops Challenge Apps API
+name: devops-challenge-apps-api
+version: 1.0.0
