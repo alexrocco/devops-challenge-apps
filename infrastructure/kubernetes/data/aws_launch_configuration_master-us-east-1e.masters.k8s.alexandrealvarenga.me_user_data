@@ -183,7 +183,7 @@ kubeAPIServer:
   - http://127.0.0.1:4001
   etcdServersOverrides:
   - /events#http://127.0.0.1:4002
-  image: k8s.gcr.io/kube-apiserver:v1.11.8
+  image: k8s.gcr.io/kube-apiserver:v1.11.9
   insecureBindAddress: 127.0.0.1
   insecurePort: 8080
   kubeletPreferredAddressTypes:
@@ -209,7 +209,7 @@ kubeControllerManager:
   clusterCIDR: 100.96.0.0/11
   clusterName: k8s.alexandrealvarenga.me
   configureCloudRoutes: false
-  image: k8s.gcr.io/kube-controller-manager:v1.11.8
+  image: k8s.gcr.io/kube-controller-manager:v1.11.9
   leaderElection:
     leaderElect: true
   logLevel: 2
@@ -218,10 +218,10 @@ kubeProxy:
   clusterCIDR: 100.96.0.0/11
   cpuRequest: 100m
   hostnameOverride: '@aws'
-  image: k8s.gcr.io/kube-proxy:v1.11.8
+  image: k8s.gcr.io/kube-proxy:v1.11.9
   logLevel: 2
 kubeScheduler:
-  image: k8s.gcr.io/kube-scheduler:v1.11.8
+  image: k8s.gcr.io/kube-scheduler:v1.11.9
   leaderElection:
     leaderElect: true
   logLevel: 2
@@ -275,8 +275,8 @@ __EOF_IG_SPEC
 
 cat > kube_env.yaml << '__EOF_KUBE_ENV'
 Assets:
-- e0b7ecb1f48d05417559c19182c073a1622252e3@https://storage.googleapis.com/kubernetes-release/release/v1.11.8/bin/linux/amd64/kubelet
-- 58695010a4af0a59c9bb8124c706e411fa5488b4@https://storage.googleapis.com/kubernetes-release/release/v1.11.8/bin/linux/amd64/kubectl
+- 3ec59a6a27654f4930843ff0c221ebb4d3501fd2@https://storage.googleapis.com/kubernetes-release/release/v1.11.9/bin/linux/amd64/kubelet
+- ed07ed02f6d6c8ee2a14c7427f4502acfa5d056f@https://storage.googleapis.com/kubernetes-release/release/v1.11.9/bin/linux/amd64/kubectl
 - d595d3ded6499a64e8dac02466e2f5f2ce257c9f@https://storage.googleapis.com/kubernetes-release/network-plugins/cni-plugins-amd64-v0.6.0.tgz
 - b8fef14d3b0594d4c02d6bf94c4fe7329fb7da73@https://kubeupv2.s3.amazonaws.com/kops/1.11.1/linux/amd64/utils.tar.gz
 ClusterName: k8s.alexandrealvarenga.me

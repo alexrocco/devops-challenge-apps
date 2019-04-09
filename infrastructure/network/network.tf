@@ -38,8 +38,9 @@ resource "aws_vpc" "default_vpc" {
 
 # Private Subnets for RDS
 resource "aws_subnet" "rds_subnet_1" {
-  vpc_id     = "${aws_vpc.default_vpc.id}"
-  cidr_block = "${var.rds_private_subnet_1_vpc_cidr_block}"
+  vpc_id            = "${aws_vpc.default_vpc.id}"
+  cidr_block        = "${var.rds_private_subnet_1_vpc_cidr_block}"
+  availability_zone = "us-east-1a"
 
   tags = {
     Name = "devops-challenge-apps-rds-subnet-1"
@@ -47,8 +48,10 @@ resource "aws_subnet" "rds_subnet_1" {
 }
 
 resource "aws_subnet" "rds_subnet_2" {
-  vpc_id     = "${aws_vpc.default_vpc.id}"
-  cidr_block = "${var.rds_private_subnet_2_vpc_cidr_block}"
+  vpc_id            = "${aws_vpc.default_vpc.id}"
+  cidr_block        = "${var.rds_private_subnet_2_vpc_cidr_block}"
+  availability_zone = "us-east-1b"
+
 
   tags = {
     Name = "devops-challenge-apps-rds-subnet-2"

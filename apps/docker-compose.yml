@@ -2,7 +2,7 @@ version: '3'
 
 services:
   api:
-    image: alexxrocco/devops-challenge-apps-api:latest
+    image: alexxrocco/devops-challenge-apps-api:1.0.0
     build:
       context: $PWD/api/
       dockerfile: $PWD/api/Dockerfile
@@ -19,7 +19,7 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: api
   web:
-    image: alexxrocco/devops-challenge-apps-web:latest
+    image: alexxrocco/devops-challenge-apps-web:1.0.0
     build:
       context: $PWD/web/
       dockerfile: $PWD/web/Dockerfile
