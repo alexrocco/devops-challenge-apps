@@ -2,7 +2,7 @@ replicaCount: 2
 maxUnavailable: 1
 
 image:
-  repository: alexxrocco/devops-challenge-apps-api
+  repository: alexxrocco/devops-challenge-apps-web
   tag: 1.0.0
   pullPolicy: IfNotPresent
 
@@ -18,7 +18,7 @@ ingress:
     ingress.kubernetes.io/force-ssl-redirect: true
   path: /
   hosts:
-    - api.k8s.alexandrealvarenga.me
+    - web.k8s.alexandrealvarenga.me
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -32,4 +32,4 @@ resources: {}
   #  cpu: 100m
   #  memory: 128Mi
 
-postgresUrl: ""
+apiHost: ""
