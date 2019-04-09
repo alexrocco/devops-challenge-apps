@@ -1,5 +1,5 @@
 replicaCount: 2
-maxUnavailable: 0
+maxUnavailable: 1
 
 image:
   repository: alexxrocco/devops-challenge-apps-api

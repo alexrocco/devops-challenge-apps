@@ -18,7 +18,7 @@ locals = {
   route_table_public_id             = "${aws_route_table.k8s-alexandrealvarenga-me.id}"
   subnet_us-east-1e_id              = "${aws_subnet.us-east-1e-k8s-alexandrealvarenga-me.id}"
   subnet_utility-us-east-1e_id      = "${aws_subnet.utility-us-east-1e-k8s-alexandrealvarenga-me.id}"
-  vpc_id                            = "vpc-0e320a1b25c348853"
+  vpc_id                            = "vpc-0f0a81ffac627abdc"
 }
 
 output "bastion_autoscaling_group_ids" {
@@ -98,7 +98,7 @@ output "subnet_utility-us-east-1e_id" {
 }
 
 output "vpc_id" {
-  value = "vpc-0e320a1b25c348853"
+  value = "vpc-0f0a81ffac627abdc"
 }
 
 provider "aws" {
@@ -453,7 +453,7 @@ resource "aws_nat_gateway" "us-east-1e-k8s-alexandrealvarenga-me" {
 resource "aws_route" "0-0-0-0--0" {
   route_table_id         = "${aws_route_table.k8s-alexandrealvarenga-me.id}"
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = "igw-0385bd8669316d655"
+  gateway_id             = "igw-069c4b69117cb10a9"
 }
 
 resource "aws_route" "private-us-east-1e-0-0-0-0--0" {
@@ -489,7 +489,7 @@ resource "aws_route53_record" "bastion-k8s-alexandrealvarenga-me" {
 }
 
 resource "aws_route_table" "k8s-alexandrealvarenga-me" {
-  vpc_id = "vpc-0e320a1b25c348853"
+  vpc_id = "vpc-0f0a81ffac627abdc"
 
   tags = {
     KubernetesCluster                                 = "k8s.alexandrealvarenga.me"
@@ -500,7 +500,7 @@ resource "aws_route_table" "k8s-alexandrealvarenga-me" {
 }
 
 resource "aws_route_table" "private-us-east-1e-k8s-alexandrealvarenga-me" {
-  vpc_id = "vpc-0e320a1b25c348853"
+  vpc_id = "vpc-0f0a81ffac627abdc"
 
   tags = {
     KubernetesCluster                                 = "k8s.alexandrealvarenga.me"
@@ -522,7 +522,7 @@ resource "aws_route_table_association" "utility-us-east-1e-k8s-alexandrealvareng
 
 resource "aws_security_group" "api-elb-k8s-alexandrealvarenga-me" {
   name        = "api-elb.k8s.alexandrealvarenga.me"
-  vpc_id      = "vpc-0e320a1b25c348853"
+  vpc_id      = "vpc-0f0a81ffac627abdc"
   description = "Security group for api ELB"
 
   tags = {
@@ -534,7 +534,7 @@ resource "aws_security_group" "api-elb-k8s-alexandrealvarenga-me" {
 
 resource "aws_security_group" "bastion-elb-k8s-alexandrealvarenga-me" {
   name        = "bastion-elb.k8s.alexandrealvarenga.me"
-  vpc_id      = "vpc-0e320a1b25c348853"
+  vpc_id      = "vpc-0f0a81ffac627abdc"
   description = "Security group for bastion ELB"
 
   tags = {
@@ -546,7 +546,7 @@ resource "aws_security_group" "bastion-elb-k8s-alexandrealvarenga-me" {
 
 resource "aws_security_group" "bastion-k8s-alexandrealvarenga-me" {
   name        = "bastion.k8s.alexandrealvarenga.me"
-  vpc_id      = "vpc-0e320a1b25c348853"
+  vpc_id      = "vpc-0f0a81ffac627abdc"
   description = "Security group for bastion"
 
   tags = {
@@ -558,7 +558,7 @@ resource "aws_security_group" "bastion-k8s-alexandrealvarenga-me" {
 
 resource "aws_security_group" "masters-k8s-alexandrealvarenga-me" {
   name        = "masters.k8s.alexandrealvarenga.me"
-  vpc_id      = "vpc-0e320a1b25c348853"
+  vpc_id      = "vpc-0f0a81ffac627abdc"
   description = "Security group for masters"
 
   tags = {
@@ -570,7 +570,7 @@ resource "aws_security_group" "masters-k8s-alexandrealvarenga-me" {
 
 resource "aws_security_group" "nodes-k8s-alexandrealvarenga-me" {
   name        = "nodes.k8s.alexandrealvarenga.me"
-  vpc_id      = "vpc-0e320a1b25c348853"
+  vpc_id      = "vpc-0f0a81ffac627abdc"
   description = "Security group for nodes"
 
   tags = {
@@ -752,7 +752,7 @@ resource "aws_security_group_rule" "ssh-external-to-bastion-elb-0-0-0-0--0" {
 }
 
 resource "aws_subnet" "us-east-1e-k8s-alexandrealvarenga-me" {
-  vpc_id            = "vpc-0e320a1b25c348853"
+  vpc_id            = "vpc-0f0a81ffac627abdc"
   cidr_block        = "10.0.32.0/19"
   availability_zone = "us-east-1e"
 
@@ -766,7 +766,7 @@ resource "aws_subnet" "us-east-1e-k8s-alexandrealvarenga-me" {
 }
 
 resource "aws_subnet" "utility-us-east-1e-k8s-alexandrealvarenga-me" {
-  vpc_id            = "vpc-0e320a1b25c348853"
+  vpc_id            = "vpc-0f0a81ffac627abdc"
   cidr_block        = "10.0.0.0/22"
   availability_zone = "us-east-1e"
 
