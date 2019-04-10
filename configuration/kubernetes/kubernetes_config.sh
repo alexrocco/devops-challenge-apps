@@ -6,4 +6,6 @@ kubectl create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-adm
 
 ## NGINX
 cd nginx || exit 1
-kubectl apply -f ./mandatory.yaml ./patch-configmap-l7.yaml ./service-l7.yaml
+kubectl apply -f ./mandatory.yaml
+kubectl apply -f ./patch-configmap-l7.yaml
+kubectl apply -f ./service-l7.yaml
