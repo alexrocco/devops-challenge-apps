@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/part-of: ingress-nginx
   annotations:
     # replace with the correct value of the generated certificate in the AWS console
-    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:us-east-1:196334076591:certificate/54c76ae3-e2b6-4418-8be0-f76952d5c3ea"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: " arn:aws:acm:us-east-1:196334076591:certificate/8107fa20-a11d-480f-b0cc-4aa863120e8a"
     # the backend instances are HTTP
     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
     # Map port 443

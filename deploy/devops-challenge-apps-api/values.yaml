@@ -1,3 +1,8 @@
+# Default values for devops-challenge-apps-api.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+postgresUrl: ""
+
 replicaCount: 2
 maxUnavailable: 1
 
@@ -6,19 +11,27 @@ image:
   tag: 1.0.0
   pullPolicy: IfNotPresent
 
+nameOverride: ""
+fullnameOverride: ""
+
 service:
   type: ClusterIP
   port: 80
-  targetPort: 8080
 
 ingress:
   enabled: true
   annotations:
-    "kubernetes.io/ingress.class": nginx
-    "ingress.kubernetes.io/force-ssl-redirect": true
-  path: /
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   hosts:
-    - api.k8s.alexandrealvarenga.me
+    - host: api.app.k8s.alexandrealvarenga.me
+      paths:
+        - "/"
+
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -26,10 +39,14 @@ resources: {}
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   # limits:
-  #  cpu: 100m
-  #  memory: 128Mi
+  #   cpu: 100m
+  #   memory: 128Mi
   # requests:
-  #  cpu: 100m
-  #  memory: 128Mi
+  #   cpu: 100m
+  #   memory: 128Mi
 
-postgresUrl: ""
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

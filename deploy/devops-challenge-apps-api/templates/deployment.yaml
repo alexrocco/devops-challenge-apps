@@ -1,12 +1,12 @@
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "devops-challenge-apps-api.fullname" . }}
+  name: {{ include "devops-challenge-apps-api.fullname" . }}
   labels:
-    app: {{ template "devops-challenge-apps-api.name" . }}
-    chart: {{ template "devops-challenge-apps-api.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    app.kubernetes.io/name: {{ include "devops-challenge-apps-api.name" . }}
+    helm.sh/chart: {{ include "devops-challenge-apps-api.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
@@ -15,13 +15,13 @@ spec:
       maxUnavailable: {{ .Values.maxUnavailable }}
   selector:
     matchLabels:
-      app: {{ template "devops-challenge-apps-api.name" . }}
-      release: {{ .Release.Name }}
+      app.kubernetes.io/name: {{ include "devops-challenge-apps-api.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ template "devops-challenge-apps-api.name" . }}
-        release: {{ .Release.Name }}
+        app.kubernetes.io/name: {{ include "devops-challenge-apps-api.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
@@ -46,4 +46,16 @@ spec:
               path: /api/status
               port: http
           resources:
-{{ toYaml .Values.resources | indent 12 }}
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
