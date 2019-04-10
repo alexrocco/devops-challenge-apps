@@ -4,8 +4,6 @@
 helm init
 kubectl create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:default
 
-echo "Wait until tiller pod is ready"
-sleep 30
-
 ## NGINX
-helm install --name nginx stable/nginx-ingress -f helm/nginx/values.yml
+cd nginx || exit 1
+kubectl apply -f ./mandatory.yaml ./patch-configmap-l7.yaml ./service-l7.yaml
