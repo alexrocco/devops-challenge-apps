@@ -24,7 +24,7 @@ deploy_api() {
 }
 
 deploy_web() {
-  API_SERVICE_NAME="http://${API_CHART}-devops-challenge-apps-api/"
+  API_SERVICE_NAME="http://${API_CHART}-devops-challenge-apps-api"
 
   helm install --name ${WEB_CHART} ./devops-challenge-apps-web --set apiHost=${API_SERVICE_NAME}
 }

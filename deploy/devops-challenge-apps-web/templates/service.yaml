@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "devops-challenge-apps-api.fullname" . }}
+  name: {{ include "devops-challenge-apps-web.fullname" . }}
   labels:
-    app: {{ template "devops-challenge-apps-api.name" . }}
-    chart: {{ template "devops-challenge-apps-api.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    app.kubernetes.io/name: {{ include "devops-challenge-apps-web.name" . }}
+    helm.sh/chart: {{ include "devops-challenge-apps-web.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -15,5 +15,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: {{ template "devops-challenge-apps-api.name" . }}
-    release: {{ .Release.Name }}
+    app.kubernetes.io/name: {{ include "devops-challenge-apps-web.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
