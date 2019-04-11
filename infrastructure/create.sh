@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo "##################################"
+echo "### Creates the infrastructure ###"
+echo "##################################"
+echo
+
 set -e
 
 BASE_PATH=$PWD
@@ -9,7 +14,7 @@ NETWORK_CIDR=""
 create_infrastructure_state() {
   cd state || exit 1
 
-  terraform init
+  terraform init > /dev/null
   terraform apply -auto-approve
 
   cd $BASE_PATH || exit 1
@@ -18,7 +23,7 @@ create_infrastructure_state() {
 create_network() {
   cd network || exit 1
 
-  terraform init
+  terraform init > /dev/null
   terraform apply -auto-approve
 
   VPC_ID=$(terraform output vpc_id)
@@ -50,7 +55,7 @@ create_kubernetes() {
   --out=. \
   --target=terraform
 
-  terraform init
+  terraform init > /dev/null
   terraform apply -auto-approve
 
   kops export kubecfg ${NAME}
@@ -61,11 +66,10 @@ create_kubernetes() {
 create_database() {
   cd database || exit 1
 
-  terraform init
+  terraform init > /dev/null
   terraform apply -auto-approve
 
   cd $BASE_PATH || exit 1
-
 }
 
 create_infrastructure_state

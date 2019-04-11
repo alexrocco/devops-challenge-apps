@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo "################################"
+echo "### Kubernetes Configuration ###"
+echo "################################"
+echo
+
 ## Init helm on kubernetes
 helm init
 kubectl create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:default

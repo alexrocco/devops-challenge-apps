@@ -13,7 +13,7 @@ deploy_api() {
   cd ../infrastructure/database || exit 1
 
   echo "Getting database information from terraform..."
-  terraform init
+  terraform init > /dev/null
   POSTGRES_ENDPOINT=$(terraform output endpoint)
 
   cd $BASE_PATH || exit 1
